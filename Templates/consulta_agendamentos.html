@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Agendamentos - Barbearia Rustic</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-container {
+            background-color: #222;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #FFA500;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: #FF8C00;
+        }
+
+        label {
+            color: #FFA500;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .form-control {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #444;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .form-control::placeholder {
+            color: #bbb;
+        }
+
+        h1 {
+            color: #FFA500;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #FFA500;
+            margin-top: 30px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            background-color: #333;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        p {
+            margin-top: 20px;
+            color: #bbb;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Consultar Agendamento</h1>
+
+        <form method="POST" action="{{ url_for('consulta_agendamentos') }}">
+            <label for="nome_cliente">Nome do Cliente:</label>
+            <input type="text" id="nome_cliente" name="nome_cliente" class="form-control" placeholder="Digite o nome do cliente" required>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+
+        {% if agendamentos %}
+            <h2>Agendamentos de {{ nome_cliente }}</h2>
+            <ul>
+                {% for agendamento in agendamentos %}
+                    <li>Serviço: {{ agendamento.servico }} | Data: {{ agendamento.data }} | Horário: {{ agendamento.horario }}</li>
+                {% endfor %}
+            </ul>
+        {% elif agendamentos is not none %}
+            <p>Nenhum agendamento encontrado para esse cliente.</p>
+        {% endif %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

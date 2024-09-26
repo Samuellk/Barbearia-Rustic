@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbearia Rustic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            background-color: #000; 
+            color: #fff; 
+            font-family: 'Poppins', sans-serif; 
+        }
+
+        h1, h2, h5 {
+            font-family: 'Lora', serif; 
+        }
+
+        p {
+            font-family: 'Poppins', sans-serif; 
+        }
+
+        .navbar, .footer {
+            background-color: #000;
+        }
+
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .nav-link:hover {
+            color: #FFA500 !important; 
+        }
+
+        .highlight {
+            color: #FFA500; 
+        }
+
+        .btn-primary {
+            background-color: #FFA500; 
+            border: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background-color: #FF8C00;
+            color: #fff;
+        }
+
+        .rounded-circle {
+            border: 2px solid #FFA500;
+        }
+
+        .star-rating {
+            color: #FFA500;
+        }
+
+        footer {
+            background-color: #111;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-lateral {
+            background-color: #222; 
+            color: #fff; 
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-lateral hr {
+            border: 1px solid #fff; 
+        }
+
+        .icon-plane {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+
+        .card-lateral {
+            position: sticky;
+            top: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='barbearia1.png') }}" width="100" height="100" alt="Cabeleireiro 3"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="container">
+                    <h1><span class="highlight">Barbearia Rustic 99</span></h1>
+                    <p>Bem-vindo, {{ nome }}!</p>        
+                </div>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">  
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('consulta_agendamentos') }}">Consultar Agendamento</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('satisfacao') }}">Clientes satisfeitos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-5">
+        <div class="row">
+            
+            <div class="col-md-8">
+                      
+                <div id="carouselExample" class="carousel slide mt-4" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ url_for('static', filename='imagem.1.webp') }}" width="800" height="473" alt="Cabeleireiro 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='imagem.2.webp') }}" class="d-block w-100" alt="Cabeleireiro 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='barbearia1.png') }}" width="800" height="473" alt="Cabeleireiro 3">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='imagem.3.webp') }}" width="800" height="473" alt="Cabeleireiro 3">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='imagem.4.webp') }}" width="800" height="473" alt="Cabeleireiro 3">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Próximo</span>
+                    </button>
+                </div>
+
+                <section id="servicos" class="mt-5">
+                    <h2 class="highlight">Nossos Serviços</h2>
+                    
+                    <div class="service-item">
+                        <h5 class="service-title" style="color: orange;">BARBA (Barboterapia)</h5>
+                        <p class="service-description" style="color: white; font-size: 0.75rem;">Em caso de desistência favor desmarcar seu horário com no mínimo 1 hora de antecedência. Horário não desmarcado será cobrado integralmente.</p>
+                        <p class="service-price" style="color: greenyellow;">R$ 30,00</p>
+                        <p class="service-duration">🕒 25 min</p>
+                    </p>
+                    <a href="{{ url_for('agendamento', servico='BARBA (Barboterapia)', valor='30.00') }}" class="btn btn-primary">Agendar</a>
+                        <hr>
+                    </div>
+                
+                    <div class="service-item">
+                        <h5 class="service-title" style="color: orange;">CORTE INFANTIL (mínimo 5 anos)</h5>
+                        <p class="service-description" style="color: white; font-size: 0.75rem;">Em caso de desistência favor desmarcar seu horário com no mínimo 1 hora de antecedência. Horário não desmarcado será cobrado integralmente.</p>
+                        <p class="service-price" style="color: greenyellow;">R$ 25,00</p>
+                        <p class="service-duration">🕒 30 min</p>
+                        <a href="{{ url_for('agendamento', servico='CORTE INFANTIL', valor='25.00') }}" class="btn btn-primary">Agendar</a>
+                        <hr>
+                    </div>
+                
+                    <div class="service-item">
+                        <h5 class="service-title" style="color: orange;">CORTE MASCULINO</h5>
+                        <p class="service-description" style="color: white; font-size: 0.75rem;">Em caso de desistência favor desmarcar seu horário com no mínimo 1 hora de antecedência. Horário não desmarcado será cobrado integralmente.</p>
+                        <p class="service-price" style="color: greenyellow;">R$ 30,00</p>
+                        <p class="service-duration">🕒 45 min</p>
+                        <a href="{{ url_for('agendamento', servico='CORTE MASCULINO', valor='30.00') }}" class="btn btn-primary">Agendar</a>
+                        <hr>
+                    </div>
+                
+                    <div class="service-item">
+                        <h5 class="service-title" style="color: orange;">CORTE (ADULTO e INFANTIL)</h5>
+                        <p class="service-price" style="color: greenyellow;">R$ 50,00</p>
+                        <p class="service-duration">🕒 65 min</p>
+                        <a href="{{ url_for('agendamento', servico='CORTE (ADULTO e INFANTIL)', valor='50.00') }}" class="btn btn-primary">Agendar</a>
+                        <hr>
+                    </div>
+                
+                    <div class="service-item">
+                        <h5 class="service-title" style="color: orange;">CORTE + BARBA</h5>
+                        <p class="service-price" style="color: greenyellow;">R$ 58,00</p>
+                        <p class="service-duration">🕒 60 min</p>
+                        <a href="{{ url_for('agendamento', servico='CORTE + BARBA', valor='58.00') }}" class="btn btn-primary">Agendar</a>
+                        <hr>
+                    </div>
+                
+                    <div class="service-item">
+                        <h5 class="service-title" style="color: orange;">CORTE+BARBA+PIGMENTAÇÃO (sobrancelhas)</h5>
+                        <p class="service-price" style="color: greenyellow;">R$ 70,00</p>
+                        <p class="service-duration">🕒 90 min</p>
+                        <a href="{{ url_for('agendamento', servico='CORTE+BARBA+PIGMENTAÇÃO', valor='70.00') }}" class="btn btn-primary">Agendar</a>
+                        <hr>
+                    </div>
+                
+                    <div class="service-item">
+                        <h5 class="service-title" style="color: orange;">CORTE+SOBRANCELHAS</h5>
+                        <p class="service-description" style="color: white; font-size: 0.75rem;">Em caso de desistência favor desmarcar seu horário com no mínimo 1 hora de antecedência. Horário não desmarcado será cobrado integralmente.</p>
+                        <p class="service-price" style="color: greenyellow;">R$ 40,00</p>
+                        <p class="service-duration">🕒 55 min</p>
+                        <a href="{{ url_for('agendamento', servico='CORTE+SOBRANCELHA', valor='40.00') }}" class="btn btn-primary">Agendar</a>
+                        <hr>
+                    </div>
+                
+                    <div class="service-item">
+                        <h5 class="service-title" style="color: orange;">PIGMENTAÇÃO + BARBA</h5>
+                        <p class="service-price" style="color: greenyellow;">R$ 50,00</p>
+                        <p class="service-duration">🕒 70 min</p>
+                        <a href="{{ url_for('agendamento', servico='PIGMENTAÇÃO + BARBA', valor='50.00') }}" class="btn btn-primary">Agendar</a>
+                        <hr>
+                    </div>
+                
+                    <div class="service-item">
+                        <h5 class="service-title" style="color: orange;">SOBRANCELHAS (feita na navalha)</h5>
+                        <p class="service-price" style="color: greenyellow;">R$ 20,00</p>
+                        <p class="service-duration">🕒 25 min</p>
+                        <a href="{{ url_for('agendamento', servico='SOBRANCELHAS (feita na navalha)', valor='20.00') }}" class="btn btn-primary">Agendar</a>
+                        <hr>
+                    </div>
+                
+                    <div class="service-item">
+                        <h5 class="service-title" style="color: orange;">CORTE SÓ COM UMA NUMERAÇÃO ou PEZINHO (acabamento)</h5>
+                        <p class="service-price" style="color: greenyellow;">R$ 25,00</p>
+                        <p class="service-duration">🕒 30 min</p>
+                        <a href="{{ url_for('agendamento', servico='CORTE SÓ COM UMA NUMERAÇÃO ou PEZINHO', valor='25.00') }}" class="btn btn-primary">Agendar</a>
+                        <hr>
+                    </div>
+                </section>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card-lateral">
+                    <h5><class="service-title" style="color: orange;">Informações do Cabeleireiro</h5>
+
+                    <p>
+                        <strong class="service-title" style="color: orange;">Endereço:</strong> 
+                        Barbearia Rustic 99, R. Antônio Martins Silva, 247 - Parque Boturussu, São Paulo - SP, 03880-070
+                        <a href="https://www.google.com/maps/dir//R.+Ant%C3%B4nio+Martins+Silva,+247+-+Parque+Boturussu,+S%C3%A3o+Paulo+-+SP,+03880-070/@-23.5065067,-46.5690238,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x94ce61890a5f0a7b:0x87e6018af05963c8!2m2!1d-46.4866222!2d-23.5065284?entry=ttu&g_ep=EgoyMDI0MDkxMS4wIKXMDSoASAFQAw%3D%3D" target="_blank">
+                            <img src="https://img.icons8.com/ios/50/FFFFFF/airplane-take-off.png" class="icon-plane" alt="Ícone de avião">
+                        </a>
+                    </p>
+
+                    <hr>
+
+                    <p><strong><class="service-title" style="color: orange;">Horário de Atendimento:</strong></p>
+                    <div class="row">
+                        <div class="col-12">
+                            <p style="font-size: 0.9rem;">
+                                Terça-feira 
+                                <span style="float: right;">09:00 - 11:30 | 13:00 - 20:00</span>
+                            </p>
+ 
+                            <p style="font-size: 0.9rem;">
+                                Quarta-feira 
+                                <span style="float: right;">09:00 - 11:30 | 13:00 - 20:00</span>
+                            </p>
+                    
+                            <p style="font-size: 0.9rem;">
+                                Quinta-feira 
+                                <span style="float: right;">09:00 - 11:30 | 13:00 - 20:00</span>
+                            </p>
+                    
+                            <p style="font-size: 0.9rem;">
+                                Sexta-feira 
+                                <span style="float: right;">09:00 - 11:30 | 13:00 - 20:00</span>
+                            </p>
+                    
+                            <p style="font-size: 0.9rem;">
+                                Sábado 
+                                <span style="float: right;">09:00 - 13:00 | 14:00 - 18:30</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <p><strong><class="service-title" style="color: orange;"></class>Sobre nós:</strong><p> A Barbearia Rustic foi fundada em 2008 com a missão de proporcionar cortes de cabelo de alta qualidade, sempre priorizando o atendimento personalizado e profissionalismo.</p>
+
+                    <hr>
+
+                    <p><strong><class="service-title" style="color: orange;"></class>Contato:</strong></p>
+                    <p><class="service-title" style="color: orange;"></class>Telefone:</p><p>011 98887-5895 / 011 98658-4546</p>
+                    <p><class="service-title" style="color: orange;"></class>Email:</p><p>barbearia.rustic@salão.com</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer mt-5">
+        <p>&copy; 2024 Barbearia Rustic - Todos os direitos reservados</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

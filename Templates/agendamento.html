@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento - Barbearia Rustic</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <style>
+        
+        body, html {
+            height: 100%;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        
+        .form-container {
+            background-color: #222;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            width: 100%;
+            margin: 20px auto;
+        }
+
+        .btn-primary {
+            background-color: #FFA500;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #FF8C00;
+        }
+
+        label {
+            color: #FFA500;
+        }
+
+        .form-control {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #444;
+        }
+
+        .form-control::placeholder {
+            color: #bbb;
+        }
+
+        .input-group-addon {
+            background-color: #333;
+            border: 1px solid #444;
+        }
+
+        h1 {
+            color: #FFA500;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    
+    <div class="form-container">
+        <h1>Agendamento de Horário</h1>
+        <form id="form-agendamento" action="{{ url_for('agendamento') }}" method="POST">
+            <input type="hidden" name="servico" id="servico" value="{{ request.args.get('servico') }}">
+            <input type="hidden" name="valor" id="valor" value="{{ request.args.get('valor') }}">
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nome_cliente" class="form-label">Nome:</label>
+                    <input type="text" id="nome_cliente" name="nome_cliente" class="form-control" placeholder="Digite seu nome" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="senha_cliente" class="form-label">Senha:</label>
+                    <input type="password" id="senha_cliente" name="senha_cliente" class="form-control" placeholder="Digite sua senha" required>
+                </div>
+            </div>    
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="contato_cliente" class="form-label">Contato (Telefone):</label>
+                    <input type="text" id="contato_cliente" name="contato_cliente" class="form-control" placeholder="Digite seu telefone" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="email_cliente" class="form-label">E-mail:</label>
+                    <input type="email" id="email_cliente" name="email_cliente" class="form-control" placeholder="Digite seu e-mail" required>
+                </div>
+            </div>
+
+            
+            <div class="mb-3">
+                <label for="data" class="form-label">Data:</label>
+                <div class="input-group date">
+                    <input type="text" class="form-control" id="data" name="data" placeholder="DD/MM/YYYY" required>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="mb-3">
+                <label for="horario" class="form-label">Horário:</label>
+                <select id="horario" name="horario" class="form-select" required disabled></select>
+            </div>
+
+            
+            <div class="mb-3">
+                <label for="servico_selecionado" class="form-label">Serviço Selecionado:</label>
+                <input type="text" id="servico_selecionado" class="form-control" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label for="valor_selecionado" class="form-label">Valor:</label>
+                <input type="text" id="valor_selecionado" class="form-control" readonly>
+            </div>
+
+            
+            <button type="submit" name="agendamento" class="btn btn-primary w-100">Agendar Horário</button>
+        </form>
+    </div>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            
+            $('#data').datepicker({
+                format: 'dd/mm/yyyy',
+                language: 'pt-BR',
+                daysOfWeekDisabled: "0,1",
+                startDate: '+0d',
+                autoclose: true,
+                todayHighlight: true
+            }).on('changeDate', function() {
+                $('#horario').removeAttr('disabled');
+                var horarios = [
+                    '09:00', '10:00', '11:00', '12:00', '13:00', '14:00',
+                    '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'
+                ];
+                var indisponiveis = [];
+                while (indisponiveis.length < 2) {
+                    var aleatorio = Math.floor(Math.random() * horarios.length);
+                    if (indisponiveis.indexOf(aleatorio) === -1) {
+                        indisponiveis.push(aleatorio);
+                    }
+                }
+                $('#horario').empty();
+                horarios.forEach(function(horario, index) {
+                    if (indisponiveis.indexOf(index) !== -1) {
+                        $('#horario').append('<option value="' + horario + '" disabled>' + horario + ' - Indisponível</option>');
+                    } else {
+                        $('#horario').append('<option value="' + horario + '">' + horario + '</option>');
+                    }
+                });
+            });
+         
+            var servico = '{{ request.args.get("servico") }}';
+            var valor = '{{ request.args.get("valor") }}';
+            $('#servico_selecionado').val(servico);
+            $('#valor_selecionado').val('R$ ' + valor);
+
+            $('#form-agendamento').submit(function(event) {
+                var confirmar = confirm("Você deseja confirmar o agendamento?");
+                if (!confirmar) {
+                    event.preventDefault(); 
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="container mt-3">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
