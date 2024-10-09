@@ -69,13 +69,13 @@
 </head>
 
 <body>
-    
     <div class="form-container">
         <h1>Agendamento de Horário</h1>
         <form id="form-agendamento" action="{{ url_for('agendamento') }}" method="POST">
             <input type="hidden" name="servico" id="servico" value="{{ request.args.get('servico') }}">
             <input type="hidden" name="valor" id="valor" value="{{ request.args.get('valor') }}">
-
+            
+            
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="nome_cliente" class="form-label">Nome:</label>
@@ -103,7 +103,7 @@
             <div class="mb-3">
                 <label for="data" class="form-label">Data:</label>
                 <div class="input-group date">
-                    <input type="text" class="form-control" id="data" name="data" placeholder="DD/MM/YYYY" required>
+                    <input type="datetime" class="form-control" id="data"  name="data" placeholder="MM/DD/YYYY" required>
                     <div class="input-group-addon">
                         <span class="glyphicon glyphicon-th"></span>
                     </div>
@@ -186,16 +186,5 @@
 </body>
 
 </html>
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    <div class="container mt-3">
-      {% for category, message in messages %}
-        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-          {{ message }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      {% endfor %}
-    </div>
-  {% endif %}
-{% endwith %}
+
 
