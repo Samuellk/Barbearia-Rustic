@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolha seu Barbeiro - Barbearia Rustic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            background-color: #000;
+            color: #5f5e5e;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        h1 {
+            color: #FFA500;
+            font-family: 'Lora', serif;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .barbeiro-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .card {
+            background-color: #444;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 200px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card-img-top {
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-title {
+            font-family: 'Lora', serif;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: #FFA500;
+        }
+
+        .rating {
+            margin: 10px 0;
+        }
+
+        .fa-star {
+            color: #FFD700;
+            margin: 0 2px;
+        }
+
+        .btn-primary {
+            background-color: #FFA500;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+            border-radius: 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: #FF8C00;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Escolha seu Barbeiro</h1>
+    <div class="barbeiro-container">
+        
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='barbeiro1.jpg') }}" alt="Barbeiro João" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">João Silva</h5>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <button class="btn btn-primary" onclick="escolherBarbeiro('João Silva')">Escolher</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='barbeiro2.jpg') }}" alt="Barbeiro Carlos" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Carlos Pereira</h5>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <button class="btn btn-primary" onclick="escolherBarbeiro('Carlos Pereira')">Escolher</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='barbeiro3.jpg') }}" alt="Barbeiro Lucas" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Lucas Oliveira</h5>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <button class="btn btn-primary" onclick="escolherBarbeiro('Lucas Oliveira')">Escolher</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='barbeiro4.jpg') }}" alt="Barbeiro Rafael" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Rafael Santos</h5>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <button class="btn btn-primary" onclick="escolherBarbeiro('Rafael Santos')">Escolher</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='barbeiro5.jpg') }}" alt="Barbeiro André" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">André Almeida</h5>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <button class="btn btn-primary" onclick="escolherBarbeiro('André Almeida')">Escolher</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='barbeiro6.jpg') }}" alt="Barbeiro Gabriel" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Gabriel Pires</h5>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <button class="btn btn-primary" onclick="escolherBarbeiro('Gabriel Pires')">Escolher</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='barbeiro7.jpg') }}" alt="Barbeiro Miguel" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Miguel Andrade</h5>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <button class="btn btn-primary" onclick="escolherBarbeiro('Miguel Andrade')">Escolher</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='barbeiro8.jpg') }}" alt="Barbeiro Henrique" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Henrique Oliveira</h5>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <button class="btn btn-primary" onclick="escolherBarbeiro('Henrique Oliveira')">Escolher</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        
+        function escolherBarbeiro(nome) {
+            const servico = new URLSearchParams(window.location.search).get('servico');
+            const valor = new URLSearchParams(window.location.search).get('valor');
+            const redirectUrl = '/agendamento';
+            window.location.href = `${redirectUrl}?barbeiro=${encodeURIComponent(nome)}&servico=${encodeURIComponent(servico)}&valor=${encodeURIComponent(valor)}`;
+        }
+    
+        
+        function irParaAgendamento() {
+            const nome = document.querySelector('.card-title').innerText;
+            escolherBarbeiro(nome);
+        }
+    
+    </script>
+</body>
+</html>
